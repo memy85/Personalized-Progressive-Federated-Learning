@@ -24,8 +24,3 @@ Please install packages from `requirements.txt` after creating your own environm
 $ pip install --upgrade pip
 $ pip install -r requirements.txt
 ```
-
-```bash
-$ pip install --upgrade pip
-$ pip install -r requirements.txt
-```

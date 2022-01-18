@@ -1,4 +1,4 @@
-# Federated Semi-Supervised Learning with Inter-Client Consistency & Disjoint Learning
+# Personalized Progressive Federated Learning with Client-Specific Vertical Features
 
 This repository is an official Tensorflow 2 implementation of Personalized Progressive Federated Learning with Client-Specific Vertical Features
 

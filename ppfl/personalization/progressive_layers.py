@@ -46,7 +46,6 @@ class PersonalizedInput(layers.Layer):
             c_layer = inputs
             return self.activation(tf.matmul(c_layer, self.c_lateral) + self.b)
 
-
 class PersonalizedDense(layers.Layer):
 
     def __init__(self, units, activation, c_input_shape, v_input_shape, p_input_shape, random_seed=42, vertical=True, name=None):
@@ -58,7 +57,6 @@ class PersonalizedDense(layers.Layer):
         self.v_input_shape = v_input_shape
         self.p_input_shape = p_input_shape
         self.random_seed = random_seed
-
         self.c_lateral = self.add_weight(
             shape=(self.c_input_shape, self.units), initializer=initializers.glorot_uniform(seed=self.random_seed),
             trainable=True, name='c_lateral'
@@ -102,3 +100,11 @@ class PersonalizedDense(layers.Layer):
             c_layer = inputs[0]
             p_layer = inputs[1]
             return self.activation(tf.matmul(c_layer, self.c_lateral) + tf.matmul(p_layer, self.p) + self.b)
+
+if __name__ == "__main__":
+    input_layer = PersonalizedInput(
+        30, 'relu', 7, 10, None, vertical=True
+    )
+    dense_layer = PersonalizedDense(
+        30, 'relu', 7, 10, 10, None, vertical=True
+    )

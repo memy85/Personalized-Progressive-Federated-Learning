@@ -13,13 +13,16 @@ from base.aggregate import *
 
 class Server(object):
     def __init__(self, config: DictConfig,
-                 network_module, network_learn_module, federated_module, aggregate_fn):
+                 network_module, network_learn_module, federated_module, aggregate_fn,
+                 distribute=False):
         """
         class for controlling server's global network and information.
         This class implements the federated process.
 
         """
         self.config = config
+        self.distribute = distribute
+
         self.num_rounds = config.federate.num_rounds
         self.c_fraction = config.federate.c_fraction
         self.num_clients = config.federate.num_clients
@@ -29,7 +32,7 @@ class Server(object):
         self.network_learn_module = network_learn_module
 
         self.selected_clients_index = None
-        self.global_net: Network = None
+        self.globalnet: Network = None
         self.create_global_network(config)
 
         self.federated_module: FederatedLearningProcedure = federated_module(self, aggregate_fn, config)
@@ -39,19 +42,13 @@ class Server(object):
         self.selected_client_weight_list: List = None
         self.selected_client_loss_list: List = None
 
-        # results for train
-        self.federated_loss_per_round: List = None
-        self.train_loss_per_round: List = None
-        self.train_eval_per_round: List = None  # acc , rmse, auc ..
-        self.valid_loss_per_round: List = None
-        self.valid_eval_metric_per_round: List = None  # acc , rmse, auc ..
 
     def learn(self, clients: List[Client], valid_data: List = None):
         self.federated_module.learn(clients, valid_data)
 
     def create_global_network(self, config):
-        self.global_net = self.network_module(config, self.network_learn_module)
-        self.global_net.network._name = 'server_network'
+        self.globalnet = self.network_module(config, self.network_learn_module, self.distribute)
+        self.globalnet.model._name = 'server_network'
 
     def select_clients(self, clients):
         n_selected_clients = max(int(self.num_clients * self.c_fraction), 1)
@@ -65,7 +62,7 @@ class Server(object):
         return selected_clients
 
     def set_global_weights(self, global_weights):
-        self.global_net.network.set_weights(global_weights)  # set global weights as server weights
+        self.globalnet.model.set_weights(global_weights)  # set global weights as server weights
 
     def send_global_weights(self):
         pass  # not implemented, statement for client - server communication

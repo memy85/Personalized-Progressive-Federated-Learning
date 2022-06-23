@@ -1,0 +1,38 @@
+data:
+  num_classes: 2
+  input_size: 5
+  vertical_input_size: 15
+
+network:
+  task : 'classification'
+  input_size : 5
+  num_classes : 2
+  n_layers : 5
+  n_hidden_units : 10
+
+vertical:
+  vertical_inputs : 15
+  layers : 5
+  units : 20
+
+progressive:
+  layers : 5
+  units : 15
+
+train:
+  epochs : 30
+  learning_rate : 0.001
+  loss_fn : losses.BinaryCrossentropy
+  optimize_fn : optimizers.Adam
+  loss_metric : metrics.BinaryCrossentropy
+  evaluate_metric : metrics.BinaryAccuracy
+  batch_size : 256
+  buffer_size : 1000
+  early_stopping: True
+  stop_patience: 10
+
+mlflow:
+  experiment_name : 'ppfl_eicu'
+
+random:
+  random_seed : '42'

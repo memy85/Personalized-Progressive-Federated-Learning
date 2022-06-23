@@ -1,4 +1,4 @@
-# Federated Semi-Supervised Learning with Inter-Client Consistency & Disjoint Learning
+# Personalized Progressive Federated Learning with Client-Specific Vertical Features
 
 This repository is an official Tensorflow 2 implementation of Personalized Progressive Federated Learning with Client-Specific Vertical Features
 
@@ -19,11 +19,6 @@ The main contributions is that:
 ## Environmental Setup
 
 Please install packages from `requirements.txt` after creating your own environment with `python 3.7.x`.
-
-```bash
-$ pip install --upgrade pip
-$ pip install -r requirements.txt
-```
 
 ```bash
 $ pip install --upgrade pip

@@ -1,0 +1,8 @@
+# directory
+../.idea/
+mlrun/
+multirun/
+
+# file
+*.DS_Store
+*.gitattributes

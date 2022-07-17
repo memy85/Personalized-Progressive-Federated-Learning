@@ -100,11 +100,11 @@ class PersonalizedDense(layers.Layer):
             c_layer = inputs[0]
             p_layer = inputs[1]
             return self.activation(tf.matmul(c_layer, self.c_lateral) + tf.matmul(p_layer, self.p) + self.b)
-
-if __name__ == "__main__":
-    input_layer = PersonalizedInput(
-        30, 'relu', 7, 10, None, vertical=True
-    )
-    dense_layer = PersonalizedDense(
-        30, 'relu', 7, 10, 10, None, vertical=True
-    )
+#
+# if __name__ == "__main__":
+#     input_layer = PersonalizedInput(
+#         30, 'relu', 7, 10, None, vertical=True
+#     )
+#     dense_layer = PersonalizedDense(
+#         30, 'relu', 7, 10, 10, None, vertical=True
+#     )

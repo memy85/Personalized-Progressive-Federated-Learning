@@ -116,27 +116,3 @@ class ResNet9(Network):
     def learn(self, inputs, labels, valid_data, verbose=True):
         self.learn_module.learn(inputs, labels, valid_data, verbose=verbose)
 
-if __name__ == "__main__":
-    # disable tensorflow debugging
-    from utils import gpu_utils
-    gpu_utils.disable_tensorflow_debugging_logs()
-    from omegaconf import OmegaConf
-    config = OmegaConf.load('./config/cnn_config.yaml')
-
-    mod = MLPNetwork(config, BaseNetworkLearn, distribute=False)
-    mod.model
-
-    MLPNetwork.learn(inputs, labels, valid_data)
-
-
-
-    (train_images, train_labels), (test_images, test_labels) = tf.keras.datasets.mnist.load_data()
-    train_inputs, test_inputs = train_images / 255.0, test_images / 255.0
-    train_inputs = train_inputs.reshape(-1, 28, 28, 1)
-    test_inputs = test_inputs.reshape(-1, 28, 28, 1)
-    train_labels = tf.keras.utils.to_categorical(train_labels)
-    test_labels = tf.keras.utils.to_categorical(test_labels)
-
-    res = ResNet9(config, BaseNetworkLearn, distribute=False)
-    res.learn(train_inputs, train_labels, [test_inputs, test_labels])
-

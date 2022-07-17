@@ -34,6 +34,7 @@ def main(cfg: DictConfig) -> None:
     mod = MLPNetwork(cfg, distribute=False)
     mod.model
 
+    # Vertical
     ppfl = PersonalizedProgressiveNetwork(cfg, mod.model, '1', freeze=True, vertical=True)
     # inference example
     ppfl.network([h_inputs_train, v_inputs_train])
@@ -42,8 +43,21 @@ def main(cfg: DictConfig) -> None:
     ppfl.learn(
         h_inputs_train, v_inputs_train, labels_train,
         valid_data=[h_inputs_valid, v_inputs_valid, labels_valid],
-        verbose=1, project_path=PROJECT_PATH, save_path=None
+        verbose=1, save_path=None
     )
+
+    # only Common
+    ppfl = PersonalizedProgressiveNetwork(cfg, mod.model, '1', freeze=True, vertical=False)
+    # inference example
+    ppfl.network(h_inputs_train, v_inputs_train)
+
+    # train example
+    ppfl.learn(
+        horizontal_inputs=h_inputs_train, vertical_inputs=None, labels=labels_train,
+        valid_data=[h_inputs_valid, None, labels_valid],
+        save_path=None
+    )
+
 
 if __name__ == "__main__":
     main()

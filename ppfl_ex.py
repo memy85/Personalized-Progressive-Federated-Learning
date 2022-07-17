@@ -49,7 +49,7 @@ def main(cfg: DictConfig) -> None:
     # only Common
     ppfl = PersonalizedProgressiveNetwork(cfg, mod.model, '1', freeze=True, vertical=False)
     # inference example
-    ppfl.network(h_inputs_train, v_inputs_train)
+    ppfl.network(h_inputs_train)
 
     # train example
     ppfl.learn(
